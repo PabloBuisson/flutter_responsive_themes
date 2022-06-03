@@ -56,13 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: SizedBox(
+      body: ListView(
+        shrinkWrap: true,
+        physics: const ScrollPhysics(),
+        children: <Widget>[
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
                 const Text(
                   'You have pushed the button this many times:',
                 ),
@@ -85,7 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Checkbox(
                     value: checkboxValue,
-                    activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (bool? value) {
                       setState(() {
                         checkboxValue = value!;
@@ -96,7 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Switch(
                     value: checkboxValue,
-                    activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (bool? value) {
                       setState(() {
                         checkboxValue = value!;
@@ -122,7 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 InputChip(
                   label: const Text('Example chip'),
                   selected: checkboxValue,
-                  selectedColor: Theme.of(context).colorScheme.secondary,
                   onSelected: (bool selected) {
                     setState(() {
                       checkboxValue = selected;
@@ -136,14 +135,71 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                const CircularProgressIndicator(
-                  value: null,
-                  semanticsLabel: 'Linear progress indicator',
+                Theme(
+                  data: Theme.of(context)
+                      .copyWith(backgroundColor: Colors.purpleAccent),
+                  child: const CircularProgressIndicator(
+                    value: null,
+                    semanticsLabel: 'Linear progress indicator',
+                  ),
                 ),
               ],
             ),
           ),
-        ),
+          GridView.count(
+            crossAxisCount: 4,
+            shrinkWrap: true,
+            children: [
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: const Center(
+                  child: Text("Primary"),
+                ),
+              ),
+              const Card(
+                child: SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: Center(child: Text("On primary")),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                child: const Center(
+                  child: Text("On primary container"),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Theme.of(context).colorScheme.primary,
+                child: const Center(
+                  child: Text("Primary"),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Theme.of(context).colorScheme.primary,
+                child: const Center(
+                  child: Text("Primary"),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Theme.of(context).colorScheme.primary,
+                child: const Center(
+                  child: Text("Primary"),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
