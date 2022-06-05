@@ -2,9 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTheme {
-  //TODO change font family, add custom colors and widget themes
-  static ThemeData get lightTheme {
-    return ThemeData.light().copyWith(
+  /// all the properties shared between the dark and the light theme
+  static ThemeData sharedTheme() {
+    return ThemeData(
+      fontFamily: 'Lato',
+    );
+  }
+
+  static ThemeData lightTheme(BuildContext context) {
+    return sharedTheme().copyWith(
+      brightness: Brightness.light, // = ThemeData.light()
       appBarTheme: AppBarTheme(
           elevation: 0.0,
           centerTitle: true,
@@ -13,13 +20,14 @@ class CustomTheme {
           actionsIconTheme: const IconThemeData(color: Colors.orange),
           foregroundColor: Colors.deepPurple),
       // how the text of the app is rendered
-      textTheme: const TextTheme()
-          .copyWith(
-            bodyText2: const TextStyle(),
-            subtitle1: const TextStyle(),
-            headline4: const TextStyle(),
-          )
+      textTheme: Theme.of(context)
+          .textTheme
           // apply same properties to aforementioned text styles
+          // for more control = const TextTheme().copyWith(
+          //  bodyText2: const TextStyle(), // text by default
+          //  subtitle1: const TextStyle(), // text of textfield
+          //  headline4: const TextStyle(),
+          //  )
           .apply(
               displayColor: Colors
                   .deepPurple, // displayLarge, displayMedium, displaySmall, headlineLarge, headlineMedium, and bodySmall,
@@ -98,8 +106,9 @@ class CustomTheme {
     );
   }
 
-  static ThemeData get darkTheme {
-    return ThemeData.dark().copyWith(
+  static ThemeData darkTheme(BuildContext context) {
+    return sharedTheme().copyWith(
+      brightness: Brightness.dark, // = ThemeData.dark()
       colorScheme: ColorScheme.dark(
         primary: Colors
             .purple, // the color displayed most frequently across your app’s screens and components
@@ -110,6 +119,12 @@ class CustomTheme {
         surface: Colors.purpleAccent
             .shade200, // The background color for widgets like Card
       ),
+      // how the text of the app is rendered
+      textTheme: Theme.of(context).textTheme.apply(
+          displayColor: Colors
+              .white, // displayLarge, displayMedium, displaySmall, headlineLarge, headlineMedium, and bodySmall,
+          bodyColor: Colors.white // the remaining
+          ),
     );
   }
 }
