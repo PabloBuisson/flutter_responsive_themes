@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:responsivethemes/themes/custom_theme.dart';
+
+import 'notifiers.dart';
+import 'screens/profile_screen.dart';
+import 'screens/theme_screen.dart';
+import 'themes/custom_theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-// create a global notifier for our app
-final ValueNotifier<ThemeMode> modeNotifier = ValueNotifier(ThemeMode.light);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,9 +38,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  bool checkboxValue = false;
-  double sliderValue = 0;
+  static Map<String, Widget> rightScreens = {
+    "profile": const ProfileScreen(),
+    "theme": ThemeScreen(),
+  };
+
+  Widget? rightScreen = rightScreens["profile"];
 
   @override
   void dispose() {
@@ -75,13 +79,24 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Expanded(
             flex: 1,
-            child: ListView(children: const <Widget>[
+            child: ListView(controller: ScrollController(), children: <Widget>[
               ListTile(
-                title: Text("Profile"),
+                leading: const Icon(Icons.account_circle),
+                title: const Text("Profile"),
+                onTap: () {
+                  setState(() {
+                    rightScreen = rightScreens["profile"];
+                  });
+                },
               ),
               ListTile(
-                title: Text("Themes"),
-              ),
+                  leading: const Icon(Icons.palette),
+                  title: const Text("Themes"),
+                  onTap: () {
+                    setState(() {
+                      rightScreen = rightScreens["theme"];
+                    });
+                  }),
             ]),
           ),
           Expanded(
@@ -89,119 +104,21 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
+              controller: ScrollController(),
               children: <Widget>[
                 Center(
                   child: Container(
                     constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * 0.3),
                     width: MediaQuery.of(context).size.width * 0.3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          color: Colors.red,
-                          child: AspectRatio(
-                            aspectRatio: 2.0,
-                            child: Container(
-                              width: 20,
-                              decoration: const BoxDecoration(
-                                color: Colors.grey,
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://avatars.githubusercontent.com/u/41048008?v=4'),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'My profile',
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        ElevatedButton(
-                          onPressed: () => modeNotifier.value =
-                              currentMode == ThemeMode.light
-                                  ? ThemeMode.dark
-                                  : ThemeMode.light,
-                          child: const Text('Toggle Theme'),
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Checkbox(
-                            value: checkboxValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue = value!;
-                              });
-                            }),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Switch(
-                            value: checkboxValue,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue = value!;
-                              });
-                            }),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Slider(
-                          value: sliderValue,
-                          max: 100,
-                          divisions: 5,
-                          label: sliderValue.round().toString(),
-                          onChanged: (double value) {
-                            setState(() {
-                              sliderValue = value;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        InputChip(
-                          label: const Text('Example chip'),
-                          selected: checkboxValue,
-                          onSelected: (bool selected) {
-                            setState(() {
-                              checkboxValue = selected;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const TextField(),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Theme(
-                          data: Theme.of(context)
-                              .copyWith(backgroundColor: Colors.purpleAccent),
-                          child: const CircularProgressIndicator(
-                            value: null,
-                            semanticsLabel: 'Linear progress indicator',
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: rightScreen,
                   ),
                 ),
               ],
             ),
           ),
         ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
