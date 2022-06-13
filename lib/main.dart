@@ -59,20 +59,24 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Responsive Flutter"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: IconButton(
-                onPressed: () => modeNotifier.value =
-                    currentMode == ThemeMode.light
-                        ? ThemeMode.dark
-                        : ThemeMode.light,
-                icon: currentMode == ThemeMode.light
-                    ? const Icon(Icons.mode_night, color: Colors.white)
-                    : const Icon(
-                        Icons.sunny,
-                        color: Colors.white,
-                      )),
-          )
+          ValueListenableBuilder<ThemeMode>(
+              valueListenable: modeNotifier,
+              builder: (_, selectedMode, __) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: IconButton(
+                      onPressed: () => modeNotifier.value =
+                          selectedMode == ThemeMode.light
+                              ? ThemeMode.dark
+                              : ThemeMode.light,
+                      icon: selectedMode == ThemeMode.light
+                          ? const Icon(Icons.mode_night, color: Colors.white)
+                          : const Icon(
+                              Icons.sunny,
+                              color: Colors.white,
+                            )),
+                );
+              }),
         ],
       ),
       body: Row(
