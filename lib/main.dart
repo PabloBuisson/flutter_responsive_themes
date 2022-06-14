@@ -53,8 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeMode currentMode = modeNotifier.value;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Responsive Flutter"),
@@ -80,6 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 1,
@@ -110,13 +110,11 @@ class _MyHomePageState extends State<MyHomePage> {
               physics: const ScrollPhysics(),
               controller: ScrollController(),
               children: <Widget>[
-                Center(
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.3),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: rightScreen,
-                  ),
+                Container(
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.3),
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: rightScreen,
                 ),
               ],
             ),
