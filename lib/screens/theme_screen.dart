@@ -20,56 +20,16 @@ class ThemeScreen extends StatelessWidget {
                     spacing: 16.0,
                     runSpacing: 16.0,
                     children: [
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
-                            maxWidth: 200.0), // add the desired size
-                        child: AspectRatio(
-                          aspectRatio: 1, // make a square
-                          child: Card(
-                            elevation: 8.0,
-                            color: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8.0))),
-                            child: Wrap(
-                              children: [
-                                const Text("Light theme"),
-                                Radio(
-                                  value: ThemeMode.light,
-                                  groupValue: selectedMode,
-                                  onChanged: (value) {
-                                    modeNotifier.value = value as ThemeMode;
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      CustomRadioButton(
+                        label: "Light Theme",
+                        value: ThemeMode.light,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                       ),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 200.0),
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Card(
-                            elevation: 8.0,
-                            color: Colors.black,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8.0))),
-                            child: Wrap(
-                              children: [
-                                const Text("Dark theme"),
-                                Radio(
-                                  value: ThemeMode.dark,
-                                  groupValue: selectedMode,
-                                  onChanged: (value) {
-                                    modeNotifier.value = value as ThemeMode;
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      CustomRadioButton(
+                        label: "Dark Theme",
+                        value: ThemeMode.dark,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
                     ],
                   ),
@@ -88,5 +48,52 @@ class ThemeScreen extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+class CustomRadioButton extends StatelessWidget {
+  final String label;
+  final ThemeMode value;
+  final Color? backgroundColor;
+  const CustomRadioButton(
+      {Key? key,
+      required this.label,
+      required this.value,
+      this.backgroundColor})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: modeNotifier,
+      builder: (_, selectedMode, __) {
+        return ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 200.0),
+          child: AspectRatio(
+            aspectRatio: 1, // make a square
+            child: OutlinedButton(
+              onPressed: () {
+                modeNotifier.value = value;
+              },
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: backgroundColor ?? Colors.white),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(label),
+                  Radio(
+                    value: value,
+                    groupValue: selectedMode,
+                    onChanged: (value) {
+                      modeNotifier.value = value as ThemeMode;
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
