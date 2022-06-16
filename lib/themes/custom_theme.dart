@@ -6,6 +6,8 @@ class CustomTheme {
     return ThemeData(
       brightness: brightness,
       fontFamily: 'Lato',
+      // color for inactive checkboxes, switches, radios, ect.
+      unselectedWidgetColor: Colors.grey,
       appBarTheme: AppBarTheme(
           elevation: 0.0,
           centerTitle: true,
@@ -116,6 +118,7 @@ class CustomTheme {
       colorScheme: ColorScheme.dark(
         primary: Colors
             .purple, // the color displayed most frequently across your app’s screens and components
+        onPrimary: Colors.white,
         secondary: Colors
             .purpleAccent, // An accent color used for less prominent components in the UI, such as filter chips
         background: Colors
