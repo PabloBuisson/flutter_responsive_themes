@@ -4,32 +4,34 @@ class CustomTheme {
   /// all the properties shared between the dark and the light theme
   static ThemeData sharedTheme({required Brightness brightness}) {
     return ThemeData(
-      brightness: brightness,
-      fontFamily: 'Lato',
-      // color for inactive checkboxes, switches, radios, ect.
-      unselectedWidgetColor: Colors.grey,
-      appBarTheme: AppBarTheme(
-          elevation: 0.0,
-          centerTitle: true,
-          color: brightness == Brightness.light
-              ? Colors.purple.shade100
-              : Colors.deepPurple.shade400,
-          iconTheme: const IconThemeData(color: Colors.orange),
-          actionsIconTheme: const IconThemeData(color: Colors.orange),
-          foregroundColor: brightness == Brightness.light
-              ? Colors.deepPurple
-              : Colors.purple.shade100),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-              onPrimary:
-                  brightness == Brightness.light ? Colors.white : Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              textStyle: const TextStyle(fontSize: 18.0),
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: 26.0))),
-    );
+        brightness: brightness,
+        fontFamily: 'Lato',
+        // color for inactive checkboxes, switches, radios, ect.
+        unselectedWidgetColor: Colors.grey,
+        appBarTheme: AppBarTheme(
+            elevation: 0.0,
+            centerTitle: true,
+            color: brightness == Brightness.light
+                ? Colors.purple.shade100
+                : Colors.deepPurple.shade400,
+            iconTheme: const IconThemeData(color: Colors.orange),
+            actionsIconTheme: const IconThemeData(color: Colors.orange),
+            foregroundColor: brightness == Brightness.light
+                ? Colors.deepPurple
+                : Colors.purple.shade100),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                onPrimary: brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                textStyle: const TextStyle(fontSize: 18.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 20.0, horizontal: 26.0))),
+        toggleButtonsTheme:
+            const ToggleButtonsThemeData(textStyle: TextStyle(fontSize: 15.0)));
   }
 
   static ThemeData lightTheme(BuildContext context) {
