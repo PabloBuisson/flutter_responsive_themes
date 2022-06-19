@@ -4,34 +4,54 @@ class CustomTheme {
   /// all the properties shared between the dark and the light theme
   static ThemeData sharedTheme({required Brightness brightness}) {
     return ThemeData(
-        brightness: brightness,
-        fontFamily: 'Lato',
-        // color for inactive checkboxes, switches, radios, ect.
-        unselectedWidgetColor: Colors.grey,
-        appBarTheme: AppBarTheme(
-            elevation: 0.0,
-            centerTitle: true,
-            color: brightness == Brightness.light
-                ? Colors.purple.shade100
-                : Colors.deepPurple.shade400,
-            iconTheme: const IconThemeData(color: Colors.orange),
-            actionsIconTheme: const IconThemeData(color: Colors.orange),
-            foregroundColor: brightness == Brightness.light
-                ? Colors.deepPurple
-                : Colors.purple.shade100),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-                onPrimary: brightness == Brightness.light
-                    ? Colors.white
-                    : Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                textStyle: const TextStyle(fontSize: 18.0),
-                padding: const EdgeInsets.symmetric(
-                    vertical: 20.0, horizontal: 26.0))),
-        toggleButtonsTheme:
-            const ToggleButtonsThemeData(textStyle: TextStyle(fontSize: 15.0)));
+      brightness: brightness,
+      fontFamily: 'Lato',
+      // color for inactive checkboxes, switches, radios, ect.
+      unselectedWidgetColor: Colors.grey,
+      // color for active checkboxes, switches, radios, ect.
+      toggleableActiveColor: Colors.purpleAccent,
+      chipTheme: ChipThemeData(
+        selectedColor: Colors.purpleAccent,
+        backgroundColor: Colors.grey.shade500, // unselected backround color
+        checkmarkColor: Colors.white,
+        labelStyle: const TextStyle(color: Colors.white),
+      ),
+      appBarTheme: AppBarTheme(
+          elevation: 0.0,
+          centerTitle: true,
+          color: brightness == Brightness.light
+              ? Colors.purple.shade100
+              : Colors.deepPurple.shade400,
+          iconTheme: const IconThemeData(color: Colors.orange),
+          actionsIconTheme: const IconThemeData(color: Colors.orange),
+          foregroundColor: brightness == Brightness.light
+              ? Colors.deepPurple
+              : Colors.purple.shade100),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              onPrimary:
+                  brightness == Brightness.light ? Colors.white : Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              textStyle: const TextStyle(fontSize: 18.0),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 20.0, horizontal: 26.0))),
+      toggleButtonsTheme:
+          const ToggleButtonsThemeData(textStyle: TextStyle(fontSize: 15.0)),
+      sliderTheme: SliderThemeData(
+          thumbColor: Colors.purpleAccent,
+          activeTrackColor: Colors.purpleAccent.shade100,
+          // tooltip showing the value
+          valueIndicatorColor: Colors.deepPurple.shade400,
+          // remove padding
+          overlayShape: SliderComponentShape.noOverlay,
+          showValueIndicator: ShowValueIndicator.always),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+          color: brightness == Brightness.light
+              ? Colors.purpleAccent
+              : Colors.purpleAccent.shade400),
+    );
   }
 
   static ThemeData lightTheme(BuildContext context) {
@@ -67,8 +87,6 @@ class CustomTheme {
         surface: Colors.purpleAccent
             .shade200, // The background color for widgets like Card, Tooltip
       ),
-      // color for active checkboxes, switches, radios, ect.
-      toggleableActiveColor: Colors.purpleAccent,
       // every property declared here MUST be declared in the dark theme
       // elevatedButtonTheme: sharedTheme().elevatedButtonTheme,
       /*style : ButtonStyle(
@@ -100,12 +118,6 @@ class CustomTheme {
           }
         }),
       ),*/
-      chipTheme: ChipThemeData(
-        selectedColor: Colors.purpleAccent,
-        backgroundColor: Colors.grey.shade500, // unselected backround color
-        checkmarkColor: Colors.white,
-        labelStyle: const TextStyle(color: Colors.white),
-      ),
       /*buttonTheme: ButtonThemeData(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
@@ -129,7 +141,11 @@ class CustomTheme {
             .shade200, // The background color for widgets like Card
       ),
       // color for active checkboxes, switches, radios, ect.
-      toggleableActiveColor: Colors.purpleAccent,
+      toggleableActiveColor: Colors.purpleAccent.shade400,
+      chipTheme: ChipTheme.of(context).copyWith(
+        selectedColor: Colors.purpleAccent.shade700,
+        backgroundColor: Colors.deepPurple.shade600,
+      ),
       scaffoldBackgroundColor: Colors.deepPurple,
       // how the text of the app is rendered
       textTheme: Theme.of(context).textTheme.apply(

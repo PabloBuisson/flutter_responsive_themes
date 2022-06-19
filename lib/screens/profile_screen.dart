@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+enum Interest { sport, music, games, books, fashion, food }
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -9,9 +11,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool isLoading = false;
   bool checkboxValue = true;
   bool switchValue = true;
-  double sliderValue = 20;
+  double sliderValue = 40;
+  Map<Interest, bool> interests = {
+    Interest.sport: true,
+    Interest.games: true,
+    Interest.music: true,
+    Interest.books: true,
+    Interest.fashion: false,
+    Interest.food: false,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +71,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(
+                height: 16.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Profile completion :",
+                      style: Theme.of(context).toggleButtonsTheme.textStyle,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Slider(
+                        value: sliderValue,
+                        max: 100,
+                        divisions: 5,
+                        label: sliderValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            sliderValue = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               CheckboxListTile(
                   title: const Text('Make profile private'),
                   enableFeedback: true,
@@ -69,67 +109,89 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       checkboxValue = value!;
                     });
                   }),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(
+                      "Activate analytics",
+                      style: Theme.of(context).toggleButtonsTheme.textStyle,
+                    ),
+                    Switch(
+                        value: switchValue,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            switchValue = value!;
+                          });
+                        }),
+                  ],
+                ),
+              ),
               const SizedBox(
-                height: 20.0,
+                height: 16.0,
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'About me',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
               ),
               Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8.0,
+                runSpacing: 8.0,
                 children: [
-                  Text(
-                    "Activate analytics",
-                    style: Theme.of(context).toggleButtonsTheme.textStyle,
-                  ),
-                  Switch(
-                      value: switchValue,
-                      onChanged: (bool? value) {
+                  for (var interest in interests.entries)
+                    InputChip(
+                      label: Text(interest.key.name),
+                      selected: interest.value,
+                      onSelected: (bool selected) {
                         setState(() {
-                          switchValue = value!;
+                          interests.update(interest.key, (value) => selected);
                         });
-                      }),
+                      },
+                    ),
                 ],
               ),
               const SizedBox(
-                height: 20.0,
+                height: 16.0,
               ),
-              Slider(
-                value: sliderValue,
-                max: 100,
-                divisions: 5,
-                label: sliderValue.round().toString(),
-                onChanged: (double value) {
+              TextFormField(
+                initialValue: "My short bio...",
+                onChanged: (value) {
                   setState(() {
-                    sliderValue = value;
+                    isLoading = true;
                   });
+
+                  Future.delayed(const Duration(seconds: 2))
+                      .then((value) => setState(() {
+                            isLoading = false;
+                          }));
                 },
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              InputChip(
-                label: const Text('Example chip'),
-                selected: checkboxValue,
-                onSelected: (bool selected) {
-                  setState(() {
-                    checkboxValue = selected;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              const TextField(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Theme(
-                data: Theme.of(context)
-                    .copyWith(backgroundColor: Colors.purpleAccent),
-                child: const CircularProgressIndicator(
-                  value: null,
-                  semanticsLabel: 'Linear progress indicator',
+              if (isLoading)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40.0),
+                  child: Theme(
+                    data: Theme.of(context)
+                        .copyWith(primaryColor: Colors.purpleAccent),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        value: null,
+                        semanticsLabel: 'Linear progress indicator',
+                      ),
+                    ),
+                  ),
+                )
+              else
+                const SizedBox(
+                  height: 100.0,
                 ),
-              ),
             ],
           ),
         ),
