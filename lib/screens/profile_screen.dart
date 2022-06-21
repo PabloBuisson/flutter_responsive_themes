@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 enum Interest { sport, music, games, books, fashion, food }
 
@@ -31,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(
-          height: 20.0,
+          height: 16.0,
         ),
         ConstrainedBox(
           constraints: BoxConstraints(
@@ -61,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         const SizedBox(
-          height: 20.0,
+          height: 16.0,
         ),
         ConstrainedBox(
           constraints: BoxConstraints(

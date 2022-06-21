@@ -9,10 +9,16 @@ class CustomTheme {
       // color for inactive checkboxes, switches, radios, ect.
       unselectedWidgetColor: Colors.grey,
       // color for active checkboxes, switches, radios, ect.
-      toggleableActiveColor: Colors.purpleAccent,
+      toggleableActiveColor: brightness == Brightness.light
+          ? Colors.purpleAccent
+          : Colors.purpleAccent.shade400,
       chipTheme: ChipThemeData(
-        selectedColor: Colors.purpleAccent,
-        backgroundColor: Colors.grey.shade500, // unselected backround color
+        selectedColor: brightness == Brightness.light
+            ? Colors.purpleAccent
+            : Colors.purpleAccent.shade700,
+        backgroundColor: brightness == Brightness.light
+            ? Colors.grey.shade500
+            : Colors.deepPurple.shade600, // unselected backround color
         checkmarkColor: Colors.white,
         labelStyle: const TextStyle(color: Colors.white),
       ),
@@ -51,6 +57,15 @@ class CustomTheme {
           color: brightness == Brightness.light
               ? Colors.purpleAccent
               : Colors.purpleAccent.shade400),
+      iconTheme: IconThemeData(
+          color: brightness == Brightness.light
+              ? Colors.purpleAccent
+              : Colors.purpleAccent.shade100),
+      listTileTheme: ListTileThemeData(
+        iconColor: brightness == Brightness.light
+            ? Colors.purpleAccent
+            : Colors.purpleAccent.shade100,
+      ),
     );
   }
 
@@ -139,12 +154,6 @@ class CustomTheme {
             .white, // A color that typically appears behind scrollable content
         surface: Colors.purpleAccent
             .shade200, // The background color for widgets like Card
-      ),
-      // color for active checkboxes, switches, radios, ect.
-      toggleableActiveColor: Colors.purpleAccent.shade400,
-      chipTheme: ChipTheme.of(context).copyWith(
-        selectedColor: Colors.purpleAccent.shade700,
-        backgroundColor: Colors.deepPurple.shade600,
       ),
       scaffoldBackgroundColor: Colors.deepPurple,
       // how the text of the app is rendered
