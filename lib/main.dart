@@ -49,34 +49,72 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Responsive Flutter"),
-          actions: [
-            ValueListenableBuilder<ThemeMode>(
-                valueListenable: modeNotifier,
-                builder: (_, selectedMode, __) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: IconButton(
-                        onPressed: () => modeNotifier.value =
-                            selectedMode == ThemeMode.light
-                                ? ThemeMode.dark
-                                : ThemeMode.light,
-                        icon: selectedMode == ThemeMode.light
-                            ? const Icon(Icons.mode_night, color: Colors.white)
-                            : const Icon(
-                                Icons.sunny,
-                                color: Colors.white,
-                              )),
-                  );
-                }),
-          ],
-        ),
-        body: ResponsiveLayout(
-          mobileBody: SingleChildScrollView(child: detailScreen),
-          desktopBody: const DesktopBody(),
-          tabletBody: const DesktopBody(),
-        ));
+      appBar: AppBar(
+        title: const Text("Responsive Flutter"),
+        actions: [
+          ValueListenableBuilder<ThemeMode>(
+              valueListenable: modeNotifier,
+              builder: (_, selectedMode, __) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: IconButton(
+                      onPressed: () => modeNotifier.value =
+                          selectedMode == ThemeMode.light
+                              ? ThemeMode.dark
+                              : ThemeMode.light,
+                      icon: selectedMode == ThemeMode.light
+                          ? const Icon(Icons.mode_night)
+                          : const Icon(Icons.sunny)),
+                );
+              }),
+        ],
+      ),
+      body: ResponsiveLayout(
+        mobileBody: SingleChildScrollView(child: detailScreen),
+        desktopBody: const DesktopBody(),
+        tabletBody: const DesktopBody(),
+      ),
+      drawer: ResponsiveLayout.isMobile(context)
+          ? Drawer(
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Center(
+                        child: Text(
+                      'Drawer Header',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary),
+                    )),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.account_circle),
+                    title: const Text("Profile"),
+                    onTap: () {
+                      setState(() {
+                        detailScreen = kDetailsScreens[Screen.profile]!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                      leading: const Icon(Icons.palette),
+                      title: const Text("Themes"),
+                      onTap: () {
+                        setState(() {
+                          detailScreen = kDetailsScreens[Screen.theme]!;
+                        });
+                        Navigator.pop(context);
+                      }),
+                ],
+              ),
+            )
+          : null,
+    );
   }
 }
 

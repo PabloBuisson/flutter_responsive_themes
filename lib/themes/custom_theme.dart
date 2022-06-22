@@ -4,69 +4,80 @@ class CustomTheme {
   /// all the properties shared between the dark and the light theme
   static ThemeData sharedTheme({required Brightness brightness}) {
     return ThemeData(
-      brightness: brightness,
-      fontFamily: 'Lato',
-      // color for inactive checkboxes, switches, radios, ect.
-      unselectedWidgetColor: Colors.grey,
-      // color for active checkboxes, switches, radios, ect.
-      toggleableActiveColor: brightness == Brightness.light
-          ? Colors.purpleAccent
-          : Colors.purpleAccent.shade400,
-      chipTheme: ChipThemeData(
-        selectedColor: brightness == Brightness.light
+        brightness: brightness,
+        fontFamily: 'Lato',
+        // color for inactive checkboxes, switches, radios, ect.
+        unselectedWidgetColor: Colors.grey,
+        // color for active checkboxes, switches, radios, ect.
+        toggleableActiveColor: brightness == Brightness.light
             ? Colors.purpleAccent
-            : Colors.purpleAccent.shade700,
-        backgroundColor: brightness == Brightness.light
-            ? Colors.grey.shade500
-            : Colors.deepPurple.shade600, // unselected backround color
-        checkmarkColor: Colors.white,
-        labelStyle: const TextStyle(color: Colors.white),
-      ),
-      appBarTheme: AppBarTheme(
-          elevation: 0.0,
-          centerTitle: true,
-          color: brightness == Brightness.light
-              ? Colors.purple.shade100
+            : Colors.purpleAccent.shade400,
+        chipTheme: ChipThemeData(
+          selectedColor: brightness == Brightness.light
+              ? Colors.purpleAccent
+              : Colors.purpleAccent.shade700,
+          backgroundColor: brightness == Brightness.light
+              ? Colors.grey.shade500
+              : Colors.deepPurple.shade600, // unselected backround color
+          checkmarkColor: Colors.white,
+          labelStyle: const TextStyle(color: Colors.white),
+        ),
+        appBarTheme: AppBarTheme(
+            elevation: 0.0,
+            centerTitle: true,
+            color: brightness == Brightness.light
+                ? Colors.purple.shade100
+                : Colors.deepPurple.shade400,
+            iconTheme: IconThemeData(
+                color: brightness == Brightness.light
+                    ? Colors.deepPurple.shade400
+                    : Colors.white),
+            actionsIconTheme: IconThemeData(
+                color: brightness == Brightness.light
+                    ? Colors.deepPurple.shade400
+                    : Colors.white),
+            foregroundColor: brightness == Brightness.light
+                ? Colors.deepPurple
+                : Colors.purple.shade100),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                onPrimary: brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                textStyle: const TextStyle(fontSize: 18.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 20.0, horizontal: 26.0))),
+        toggleButtonsTheme:
+            const ToggleButtonsThemeData(textStyle: TextStyle(fontSize: 15.0)),
+        sliderTheme: SliderThemeData(
+            thumbColor: Colors.purpleAccent,
+            activeTrackColor: Colors.purpleAccent.shade100,
+            // tooltip showing the value
+            valueIndicatorColor: Colors.deepPurple.shade400,
+            // remove padding
+            overlayShape: SliderComponentShape.noOverlay,
+            showValueIndicator: ShowValueIndicator.always),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+            color: brightness == Brightness.light
+                ? Colors.purpleAccent
+                : Colors.purpleAccent.shade400),
+        iconTheme: IconThemeData(
+            color: brightness == Brightness.light
+                ? Colors.purpleAccent
+                : Colors.purpleAccent.shade100),
+        listTileTheme: ListTileThemeData(
+          iconColor: brightness == Brightness.light
+              ? Colors.purpleAccent
+              : Colors.purpleAccent.shade100,
+        ),
+        drawerTheme: DrawerThemeData(
+          backgroundColor: brightness == Brightness.light
+              ? Colors.purple.shade50
               : Colors.deepPurple.shade400,
-          iconTheme: const IconThemeData(color: Colors.orange),
-          actionsIconTheme: const IconThemeData(color: Colors.orange),
-          foregroundColor: brightness == Brightness.light
-              ? Colors.deepPurple
-              : Colors.purple.shade100),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-              onPrimary:
-                  brightness == Brightness.light ? Colors.white : Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              textStyle: const TextStyle(fontSize: 18.0),
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: 26.0))),
-      toggleButtonsTheme:
-          const ToggleButtonsThemeData(textStyle: TextStyle(fontSize: 15.0)),
-      sliderTheme: SliderThemeData(
-          thumbColor: Colors.purpleAccent,
-          activeTrackColor: Colors.purpleAccent.shade100,
-          // tooltip showing the value
-          valueIndicatorColor: Colors.deepPurple.shade400,
-          // remove padding
-          overlayShape: SliderComponentShape.noOverlay,
-          showValueIndicator: ShowValueIndicator.always),
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-          color: brightness == Brightness.light
-              ? Colors.purpleAccent
-              : Colors.purpleAccent.shade400),
-      iconTheme: IconThemeData(
-          color: brightness == Brightness.light
-              ? Colors.purpleAccent
-              : Colors.purpleAccent.shade100),
-      listTileTheme: ListTileThemeData(
-        iconColor: brightness == Brightness.light
-            ? Colors.purpleAccent
-            : Colors.purpleAccent.shade100,
-      ),
-    );
+        ));
   }
 
   static ThemeData lightTheme(BuildContext context) {
