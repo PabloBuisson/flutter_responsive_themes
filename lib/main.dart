@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:responsivethemes/responsive_layout.dart';
 
 import 'constants.dart';
 import 'notifiers.dart';
+import 'responsive_layout.dart';
 import 'themes/custom_theme.dart';
 
 void main() {
@@ -130,6 +130,7 @@ class _DesktopBodyState extends State<DesktopBody> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,11 +164,14 @@ class _DesktopBodyState extends State<DesktopBody> {
             physics: const ScrollPhysics(),
             controller: ScrollController(),
             children: <Widget>[
-              Container(
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.3),
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: detailScreen,
+              Center(
+                child: Container(
+                  constraints: BoxConstraints(
+                      maxWidth: (screenWidth * 0.4) > 300.0
+                          ? (screenWidth * 0.4)
+                          : 300.0),
+                  child: detailScreen,
+                ),
               ),
             ],
           ),

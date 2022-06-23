@@ -38,7 +38,7 @@ class CustomTheme {
                     : Colors.white),
             foregroundColor: brightness == Brightness.light
                 ? Colors.deepPurple
-                : Colors.purple.shade100),
+                : Colors.white),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
                 onPrimary: brightness == Brightness.light
