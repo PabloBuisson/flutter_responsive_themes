@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/menu_drawer.dart';
 import 'constants.dart';
 import 'notifiers.dart';
 import 'responsive_layout.dart';
@@ -38,11 +39,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget detailScreen = kDetailsScreens[Screen.profile]!;
-
   @override
   void dispose() {
     modeNotifier.dispose();
+    screenNotifier.dispose();
     super.dispose();
   }
 
@@ -70,63 +70,23 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: ResponsiveLayout(
-        mobileBody: SingleChildScrollView(child: detailScreen),
+        mobileBody: SingleChildScrollView(
+          child: ValueListenableBuilder<Screen>(
+              valueListenable: screenNotifier,
+              builder: (_, selectedScreen, __) {
+                return kDetailsScreens[selectedScreen]!;
+              }),
+        ),
         desktopBody: const DesktopBody(),
         tabletBody: const DesktopBody(),
       ),
-      drawer: ResponsiveLayout.isMobile(context)
-          ? Drawer(
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.zero,
-                children: [
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    child: Center(
-                        child: Text(
-                      'Drawer Header',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    )),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.account_circle),
-                    title: const Text("Profile"),
-                    onTap: () {
-                      setState(() {
-                        detailScreen = kDetailsScreens[Screen.profile]!;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                      leading: const Icon(Icons.palette),
-                      title: const Text("Themes"),
-                      onTap: () {
-                        setState(() {
-                          detailScreen = kDetailsScreens[Screen.theme]!;
-                        });
-                        Navigator.pop(context);
-                      }),
-                ],
-              ),
-            )
-          : null,
+      drawer: ResponsiveLayout.isMobile(context) ? const MenuDrawer() : null,
     );
   }
 }
 
-class DesktopBody extends StatefulWidget {
+class DesktopBody extends StatelessWidget {
   const DesktopBody({Key? key}) : super(key: key);
-
-  @override
-  _DesktopBodyState createState() => _DesktopBodyState();
-}
-
-class _DesktopBodyState extends State<DesktopBody> {
-  Widget detailScreen = kDetailsScreens[Screen.profile]!;
 
   @override
   Widget build(BuildContext context) {
@@ -142,18 +102,14 @@ class _DesktopBodyState extends State<DesktopBody> {
               leading: const Icon(Icons.account_circle),
               title: const Text("Profile"),
               onTap: () {
-                setState(() {
-                  detailScreen = kDetailsScreens[Screen.profile]!;
-                });
+                screenNotifier.value = Screen.profile;
               },
             ),
             ListTile(
                 leading: const Icon(Icons.palette),
                 title: const Text("Themes"),
                 onTap: () {
-                  setState(() {
-                    detailScreen = kDetailsScreens[Screen.theme]!;
-                  });
+                  screenNotifier.value = Screen.theme;
                 }),
           ]),
         ),
@@ -170,7 +126,11 @@ class _DesktopBodyState extends State<DesktopBody> {
                       maxWidth: (screenWidth * 0.4) > 300.0
                           ? (screenWidth * 0.4)
                           : 300.0),
-                  child: detailScreen,
+                  child: ValueListenableBuilder<Screen>(
+                      valueListenable: screenNotifier,
+                      builder: (_, selectedScreen, __) {
+                        return kDetailsScreens[selectedScreen]!;
+                      }),
                 ),
               ),
             ],
