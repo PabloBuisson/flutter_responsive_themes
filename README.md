@@ -1,4 +1,4 @@
-# responsivethemes
+# Responsive Themes
 
 A Flutter desktop application which show how to **handle multiple themes** and several ways to display a **responsive layout**.
 
@@ -15,6 +15,7 @@ A Flutter desktop application which show how to **handle multiple themes** and s
 
 * With this simple dashboard, I show several ways to **make an application responsive** and how to **handle multiple themes**.
 * Resources :   
+   * Flutter Windows Desktop App - Fast and Easy Setup - YouTube : https://www.youtube.com/watch?v=ymGFtpl7SBA
    * Theming a Flutter App: Getting Started | raywenderlich.com : https://www.raywenderlich.com/16628777-theming-a-flutter-app-getting-started
    * Flutter: Create Custom App Themes - gskinner blog : https://blog.gskinner.com/archives/2020/04/flutter-create-custom-app-themes.html
   
@@ -24,7 +25,12 @@ A Flutter desktop application which show how to **handle multiple themes** and s
 
 ## 🏍 Run the project
 1. Clone the repo
-2. (Windows) Activate Developer Mode
+2. Enable Desktop Mode & install Visual Studio
+```bash
+flutter config --enable-windows-desktop # enabled by default in Flutter v2.10+
+flutter config --enable-macos-desktop
+flutter config --enable-linux-desktop
+```
 3. ``flutter packages get``
 4. ``flutter run``
 
