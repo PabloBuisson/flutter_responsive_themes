@@ -20,7 +20,7 @@ A Flutter desktop application which show how to **handle multiple themes** and s
   
 ## :iphone: Images
 
-* TODO
+<img width="100%" alt="Flutter responsive themes demo" src="https://user-images.githubusercontent.com/41048008/175819628-7d77d35b-c6ae-4eba-b0aa-d85043d64d54.gif">
 
 ## 🏍 Run the project
 1. Clone the repo
