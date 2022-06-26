@@ -23,13 +23,13 @@ flutter:
   fonts:
     - family: Lato
       fonts:
+        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Lato-Italic.ttf
+          style: italic
         - asset: fonts/Lato-Thin.ttf
           weight: 100
         - asset: fonts/Lato-ThinItalic.ttf
           weight: 100
-          style: italic
-        - asset: fonts/Lato-Regular.ttf
-        - asset: fonts/Lato-Italic.ttf
           style: italic
         - asset: fonts/Lato-Light.ttf
           weight: 300

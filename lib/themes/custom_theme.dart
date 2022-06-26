@@ -93,6 +93,7 @@ class CustomTheme {
           //  headline4: const TextStyle(),
           //  )
           .apply(
+              fontFamily: 'Lato',
               displayColor: Colors
                   .deepPurple, // displayLarge, displayMedium, displaySmall, headlineLarge, headlineMedium, and bodySmall,
               bodyColor: Colors.deepPurple // the remaining
@@ -114,7 +115,6 @@ class CustomTheme {
             .shade200, // The background color for widgets like Card, Tooltip
       ),
       // every property declared here MUST be declared in the dark theme
-      // elevatedButtonTheme: sharedTheme().elevatedButtonTheme,
       /*style : ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors
                   .white), // The color for the button's Text and Icon widget descendants
@@ -169,6 +169,7 @@ class CustomTheme {
       scaffoldBackgroundColor: Colors.deepPurple,
       // how the text of the app is rendered
       textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: 'Lato',
           displayColor: Colors
               .white, // displayLarge, displayMedium, displaySmall, headlineLarge, headlineMedium, and bodySmall,
           bodyColor: Colors.white // the remaining
