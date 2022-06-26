@@ -1,16 +1,38 @@
 # responsivethemes
 
-A Flutter desktop application which explore how to set themes and a responsive layout
+A Flutter desktop application which show how to **handle multiple themes** and several ways to display a **responsive layout**.
 
-## Getting Started
+## :rocket: Goals of the project
+   
+* Create a desktop application 
+* Display a responsive layout...
+* ...without any package
+* Implement a light and a dark theme
+* Handle themes in one file
+* Use ValueNotifier
 
-This project is a starting point for a Flutter application.
+## :dart: Presentation of the project
 
-A few resources to get you started if this is your first Flutter project:
+* With this simple dashboard, I show several ways to **make an application responsive** and how to **handle multiple themes**.
+* Resources :   
+   * Theming a Flutter App: Getting Started | raywenderlich.com : https://www.raywenderlich.com/16628777-theming-a-flutter-app-getting-started
+   * Flutter: Create Custom App Themes - gskinner blog : https://blog.gskinner.com/archives/2020/04/flutter-create-custom-app-themes.html
+  
+## :iphone: Images
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* TODO
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏍 Run the project
+1. Clone the repo
+2. (Windows) Activate Developer Mode
+3. ``flutter packages get``
+4. ``flutter run``
+
+## :package: Packages
+
+* No packages for this project
+
+## :pushpin: Technologies
+
+* Flutter 2.10.4
+* Dart 2.16.2
